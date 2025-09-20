@@ -1,6 +1,5 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { watchFile } = require("fs");
 
 module.exports = {
   entry: "./src/index.js",
@@ -10,9 +9,6 @@ module.exports = {
     clean: true,
   },
   devtool: "eval-source-map",
-  devServer: {
-    watchFiles: ["./src/index.html"],
-  },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
