@@ -6,6 +6,11 @@ module.exports = merge(config, {
   mode: 'development',
   devServer: {
     watchFiles: fileWatchList,
+    open: {
+      app: {
+        name: 'google-chrome',
+      }
+    },
   },
     plugins: [
 
