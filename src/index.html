@@ -1,162 +1,299 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Donate | Save The Puppies</title>
-</head>
-<body>
-  <header class="main-header">
-    <div class="logo-wrapper">
-      <h1 class="logo-title">SAVE THE</h1>
-      <h1 class="logo-title">PUPPIES</h1>
-    </div>
-  </header>
-  <div class="main-content">
-    <div class="form-header">
-      <h1 class="form-header-title">Every Dollar Counts</h1>
-      <p class="form-header-content">Your gift helps abandoned and at-risk puppies across the U.S. find safe homes, proper nutrition, and the medical care they need. Every dollar makes a difference — please consider supporting our mission today.</p>
-    </div>
-    <form class="donation-form" novalidate>
-      <fieldset class="form-section donation-section">
-        <legend class="form-legend">Donation Amount</legend>
-        <div class="donation-form-subsection donation-frequency">
-
-          <input type="radio" name="donation-frequency" id="one-time" class="hidden-radio" value="one-time"/>
-          <label for="one-time" class="form-section-option"></label>
-
-          <input type="radio" name="donation-frequency" id="monthly" class="hidden-radio" value="monthly"/>
-          <label for="monthly" class="form-section-option"></label>
-
-        </div>
-
-        <div class="donation-form-subsection donation-amount">
-
-          <input type="radio" name="donation-amount" id="preset1" class="hidden-radio" value="25" checked/>
-          <label for="preset1" class="form-section-option donation-preset">$25</label>
-
-
-          <input type="radio" name="donation-amount" id="preset2" class="hidden-radio" value="50" />
-          <label for="preset2" class="form-section-option donation-preset">$50</label>
-
-          <input type="radio" name="donation-amount" id="preset3" class="hidden-radio" value="100"/>
-          <label for="preset3" class="form-section-option donation-preset">$100</label>
-
-          <input type="radio" name="donation-amount" id="preset4" class="hidden-radio" value="250"/>
-          <label for="preset4" class="form-section-option donation-preset">$250</label>
-
-          <input type="radio" name="donation-amount" id="preset5" class="hidden-radio" value="500"/>
-          <label for="preset5" class="form-section-option donation-preset">$500</label>
-
-          <input type="radio" name="donation-amount" id="preset6" class="hidden-radio" value="1000"/>
-          <label for="preset6" class="form-section-option donation-preset">$1,000</label>
-    
-          <input type="radio" name="donation-amount" id="custom-amount" class="hidden-radio" value=""/>
-          <label for="custom-amount" class="form-section-option donation-amount-input-wrapper">
-            <span class="input-prefix">$</span>
-            <input type="number" name="donation-amount-input" id="donation-amount-input" class="form-input" placeholder="Other Amount" min="0" step="0.01">
-          </label>
-
-        </div>
-      </fieldset>
-
-      <fieldset class="form-section contact-section">
-        <legend class="form-legend">Contact Information</legend>
-        <label for="first-name">First Name</label>
-        <input type="text" name="first-name" id="first-name" class="form-input" autocomplete="given-name" required>
-         
-        <label for="last-name">Last Name</label>
-        <input type="text" name="last-name" id="last-name" class="form-input" autocomplete="family-name" required>    
-        
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" placeholder="email@example.com" class="form-input" autocomplete="email" required>
-        
-        <label for="phone">Phone Number</label>
-        <input type="tel" name="phone" id="phone" placeholder="555-555-5555" class="form-input" autocomplete="tel-national" required>
-      </fieldset>
-
-      <fieldset class="form-section billing-address-section">
-        <legend class="form-legend">Billing Address</legend>
-        <label for="street-address">Street Address</label>
-        <input type="text" name="street-address" id="street-address" class="form-input" autocomplete="address-line1" required>
-
-        <label for="address-line-2">Address Line 2</label>
-        <input type="text" name="address-line-2" id="address-line-2" placeholder="Apt., Suite, Floor..." class="form-input" autocomplete="address-line2">
-        
-        <label for="city">City</label>
-        <input type="text" name="city" id="city" class="form-input" autocomplete="address-level2" required>
-
-        <label for="state">State/Province/Region</label>
-        <select name="state" id="state" class="form-input form-select" autocomplete="address-level1" required>
-          <option>Nevada</option>
-          <option selected>Arizona</option>
-        </select>
-
-        <label for="postal-code">Postal Code</label>
-        <input type="text" name="postal-code" id="postal-code" class="form-input" autocomplete="postal-code" required>
-
-        <label for="country">Country</label>
-        <select name="country" id="country" class="form-input form-select" autocomplete="country-name" required>
-          <option>United States</option>
-          <option selected>Canada</option>
-        </select>
-
-      </fieldset>
-
-      <fieldset class="form-section payment-section">
-        <legend class="form-legend">Card Information</legend>
-
-        <label for="cc">Card Number</label>
-        <input type="text" name="cc" id="cc" class="form-input" autocomplete="cc-number" required>
-        
-        <label for="expiration">Expiration</label>
-        <input type="text" name="expiration" id="expiration" placeholder="MM / YY" class="form-input" autocomplete="cc-exp" required>
-
-        <label for="cvv">Security Code</label>
-        <input type="text" name="cvv" id="cvv" class="form-input" pattern="\d{3,4}" maxlength="4" autocomplete="cc-csc" required>
-      
-      </fieldset>
-
-      <fieldset class="form-section account-section">
-        <legend class="form-legend">Account Creation</legend>
-        <div class="form-radio">
-          <p class="form-radio-label">Create an account?</p>
-        <div class="form-radio-item">
-          <label for="create-true">Yes, please!</label>
-          <input type="radio" name="account-create" id="create-true" class="form-radio-input" value="true" checked/>
-        </div>
-
-        <div class="form-radio-item">
-          <label for="create-false">No, thanks.</label>
-          <input type="radio" name="account-create" id="create-false" class="form-radio-input" value="false"/>
-        </div>
-
-        </div>
-        
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" class="form-input" required>
-         
-        <label for="password-confirmation">Confirm Password</label>
-        <input type="password" name="password-confirmation" id="password-confirmation" class="form-input" required>
-         
-        <small class="password-description">Password must be 8-20 characters. Password must include a number and a special character.</small>
-      </fieldset>
-      <div class="donation-summary">
-        <small class="donation-summary-frequency">One time donation</small>
-        <span class="donation-summary-frequency">
-          <p class="donation-amount">$50.00</p>
-          <span class="currency-suffix">USD</span>
-        </span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Donate | Save The Puppies</title>
+  </head>
+  <body>
+    <header class="main-header">
+      <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+      <svg
+        class="logo-icon"
+        version="1.1"
+        id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 84.541 84.541"
+        xml:space="preserve"
+      >
+        <g>
+          <path
+            d="M84.449,34.955c-0.515-5.05-3.149-9.294-7.219-11.638c-2.137-1.235-4.592-1.882-7.108-1.882
+		c-0.018,0-0.036,0.004-0.054,0.004C69.901,13.432,65.46,6.625,58.327,4.71c-1.231-0.329-2.502-0.497-3.779-0.497
+		c-4.62,0-8.972,2.201-12.275,5.805c-3.303-3.604-7.655-5.805-12.275-5.805c-1.278,0-2.548,0.168-3.786,0.497
+		c-7.129,1.911-11.57,8.722-11.739,16.728c-0.018,0-0.036-0.004-0.054-0.004c-2.516,0-4.975,0.651-7.1,1.879
+		c-4.076,2.348-6.71,6.592-7.226,11.642c-0.412,4.041,0.569,8.353,2.756,12.147c2.344,4.073,5.808,7.086,9.674,8.672
+		c-0.734,2.652-1.177,5.39-1.177,8.188c0,15.189,10.142,16.366,13.252,16.366c3.089,0,5.97-0.909,9.019-1.872
+		c2.895-0.916,5.884-1.865,8.657-1.865c2.774,0,5.766,0.948,8.657,1.865c3.049,0.966,5.93,1.872,9.019,1.872l0,0
+		c4.527,0,8.321-2.008,10.679-5.655c1.754-2.713,2.573-6.116,2.573-10.712c0-2.799-0.444-5.536-1.177-8.188
+		c3.869-1.582,7.329-4.595,9.67-8.664C83.88,43.308,84.861,38.996,84.449,34.955z M45.83,21.653c1.521-5.68,6.08-9.394,10.185-8.296
+		c4.105,1.102,6.195,6.603,4.678,12.279c-1.525,5.676-6.08,9.394-10.185,8.292C46.399,32.829,44.309,27.332,45.83,21.653z
+		 M28.526,13.353c4.101-1.099,8.661,2.616,10.185,8.296c1.521,5.68-0.569,11.177-4.674,12.275
+		c-4.105,1.102-8.661-2.616-10.185-8.292C22.327,19.956,24.421,14.456,28.526,13.353z M10.596,42.635
+		c-2.602-4.509-2.079-9.688,1.185-11.567c3.26-1.882,8.009,0.247,10.611,4.76c2.609,4.513,2.079,9.692-1.181,11.57
+		C17.95,49.278,13.198,47.152,10.596,42.635z M42.269,67.644c-12.139,0-21.981,10.493-21.981-3.683
+		c0-14.179,14.097-25.668,21.981-25.664c7.884,0.004,21.981,11.485,21.981,25.664C64.25,78.138,54.408,67.644,42.269,67.644z
+		 M73.941,42.635c-2.602,4.517-7.351,6.642-10.615,4.763c-3.26-1.879-3.79-7.061-1.181-11.57c2.602-4.513,7.351-6.642,10.611-4.76
+		C76.021,32.947,76.543,38.126,73.941,42.635z"
+          />
+        </g>
+      </svg>
+      <div class="title-wrapper">
+        <h1 class="logo-title">SAVE THE</h1>
+        <h1 class="logo-title">PUPPIES</h1>
       </div>
-      <button type="button" class="form-submit-button">DONATE</button>
-    </form>
-
-    <div class="form-footer">
-      <small class="footer-content">Save The Puppies is a registered 501(c)(3) nonprofit.
-    Donations are tax-deductible to the extent permitted by law. No goods or services were
-    provided in exchange for this donation unless otherwise noted. For receipts or questions, email donate@savethepuppies.org. Disclaimer: this is a fictional website created for personal purposes. No payment is accepted and no information is retained.</small>
+    </header>
+    <div class="main-content-background">
+      <div class="main-content">
+        <div class="form-header">
+          <h1 class="form-header-title">Every Dollar Counts</h1>
+          <p class="form-header-content">
+            Your gift helps abandoned and at-risk puppies across the U.S. find safe homes, proper nutrition, and the
+            medical care they need. Every dollar makes a difference — please consider supporting our mission today.
+          </p>
+        </div>
+        <form class="donation-form" novalidate>
+          <fieldset class="form-section donation-section">
+            <legend class="form-legend">Donation Amount</legend>
+            <div class="donation-form-subsection donation-frequency">
+              <input type="radio" name="donation-frequency" id="one-time" class="hidden" value="one-time" />
+              <label for="one-time" class="donation-section-option donation-frequency-label">One Time</label>
+              <input type="radio" name="donation-frequency" id="monthly" class="hidden" value="monthly" />
+              <label for="monthly" class="donation-section-option donation-frequency-label">Monthly</label>
+            </div>
+            <div class="donation-form-subsection donation-amount">
+              <input type="radio" name="donation-amount" id="preset1" class="hidden" value="25" checked />
+              <label for="preset1" class="donation-section-option donation-preset">$25</label>
+              <input type="radio" name="donation-amount" id="preset2" class="hidden" value="50" />
+              <label for="preset2" class="donation-section-option donation-preset">$50</label>
+              <input type="radio" name="donation-amount" id="preset3" class="hidden" value="100" />
+              <label for="preset3" class="donation-section-option donation-preset">$100</label>
+              <input type="radio" name="donation-amount" id="preset4" class="hidden" value="250" />
+              <label for="preset4" class="donation-section-option donation-preset">$250</label>
+              <input type="radio" name="donation-amount" id="preset5" class="hidden" value="500" />
+              <label for="preset5" class="donation-section-option donation-preset">$500</label>
+              <input type="radio" name="donation-amount" id="preset6" class="hidden" value="1000" />
+              <label for="preset6" class="donation-section-option donation-preset">$1,000</label>
+            </div>
+              <input type="radio" name="donation-amount" id="custom-amount" class="hidden" value="" />
+              <label for="custom-amount" class="donation-amount-input-wrapper">
+                <span class="input-prefix">$</span>
+                <input
+                  type="number"
+                  name="donation-amount-input"
+                  id="donation-amount-input"
+                  class="form-input donation-amount-input selected"
+                  placeholder="Other Amount"
+                  min="0"
+                  step="0.01"
+                />
+              </label>
+            <div class="donation-form-subsection donation-dedication">
+              <div class="donation-dedication-checkbox">
+                <input type="checkbox" id="donation-dedication" name="donation-dedication" value="true" />
+                  <label class ="checkbox-label" for="donation-dedication">Dedicate this donation to a friend or loved one</label>
+              </div>
+                <input
+                  type="text"
+                  name="dedication-name"
+                  id="dedication-name"
+                  placeholder="Enter Name"
+                  class="form-input"
+                />
+            </div>
+          </fieldset>
+          <fieldset class="form-section contact-section">
+            <legend class="form-legend">Contact Information</legend>
+            <div class="form-field">
+              <label class="input-label" for="first-name">First Name</label>
+              <input
+                type="text"
+                name="first-name"
+                id="first-name"
+                class="form-input"
+                autocomplete="given-name"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label class="input-label" for="last-name">Last Name</label>
+              <input type="text" name="last-name" id="last-name" class="form-input" autocomplete="family-name" required />
+            </div>
+            <div class="form-field">
+              <label class="input-label" for="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="email@example.com"
+                class="form-input"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label class="input-label" for="phone">Phone Number</label>
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                placeholder="555-555-5555"
+                class="form-input"
+                autocomplete="tel-national"
+                required
+              />
+            </div>
+          </fieldset>
+          <fieldset class="form-section billing-address-section">
+            <legend class="form-legend">Billing Address</legend>
+            <div class="form-field">
+              <label class="input-label" for="street-address">Street Address</label>
+              <input
+                type="text"
+                name="street-address"
+                id="street-address"
+                class="form-input"
+                autocomplete="address-line1"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label class="input-label" for="address-line-2">Address Line 2</label>
+              <input
+                type="text"
+                name="address-line-2"
+                id="address-line-2"
+                placeholder="Apt., Suite, Floor..."
+                class="form-input"
+                autocomplete="address-line2"
+              />
+            </div>
+            <div class="form-field">
+              <label class="input-label" for="city">City</label>
+              <input type="text" name="city" id="city" class="form-input" autocomplete="address-level2" required />
+            </div>
+            <div class="form-field">
+              <label class="input-label" for="state">State/Province/Region</label>
+              <select name="state" id="state" class="form-input form-select" autocomplete="address-level1" required>
+                <option>Nevada</option>
+                <option selected>Arizona</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="input-label" for="postal-code">Postal Code</label>
+              <input
+                type="text"
+                name="postal-code"
+                id="postal-code"
+                class="form-input"
+                autocomplete="postal-code"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label class="input-label" for="country">Country</label>
+              <select name="country" id="country" class="form-input form-select" autocomplete="country-name" required>
+                <option>United States</option>
+                <option selected>Canada</option>
+              </select>
+            </div>
+          </fieldset>
+          <fieldset class="form-section payment-section">
+            <legend class="form-legend">Card Information</legend>
+            <div class="form-field">
+              <label class="input-label" for="cc">Card Number</label>
+              <input type="text" name="cc" id="cc" class="form-input" autocomplete="cc-number" required />
+            </div>
+            <div class="form-field">
+              <label class="input-label" for="expiration">Expiration</label>
+              <input
+                type="text"
+                name="expiration"
+                id="expiration"
+                placeholder="MM / YY"
+                class="form-input"
+                autocomplete="cc-exp"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label class="input-label" for="cvv">Security Code</label>
+              <input
+                type="text"
+                name="cvv"
+                id="cvv"
+                class="form-input"
+                pattern="\d{3,4}"
+                maxlength="4"
+                autocomplete="cc-csc"
+                required
+              />
+            </div>
+          </fieldset>
+          <fieldset class="form-section account-section">
+            <legend class="form-legend">Account Creation</legend>
+            <div class="form-radio acount-creation-radio">
+              <p class="radio-label">Create an account?</p>
+              <div class="account-creation-option-wrapper">
+                <div class="form-radio-item">
+                  <input
+                    type="radio"
+                    name="account-create"
+                    id="create-true"
+                    class="form-radio-input"
+                    value="true"
+                    checked
+                  />
+                  <label class="radio-label" for="create-true">Yes, please!</label>
+                </div>
+                <div class="form-radio-item">
+                  <input type="radio" name="account-create" id="create-false" class="form-radio-input" value="false" />
+                  <label class="radio-label" for="create-false">No, thanks.</label>
+                </div>
+              </div>
+            </div>
+            <div class="account-password-wrapper">
+              <div class="form-field">
+                <label class="input-label" for="password">Password</label>
+                <input type="password" name="password" id="password" class="form-input" required />
+              </div>
+              <div class="form-field">
+                <label class="input-label" for="password-confirmation">Confirm Password</label>
+                <input
+                  type="password"
+                  name="password-confirmation"
+                  id="password-confirmation"
+                  class="form-input"
+                  required
+                />
+              </div>
+            </div>
+            <small class="password-description"
+              >Password must be 8-20 characters. Password must include a number and a special character.</small
+            >
+          </fieldset>
+          <div class="donation-summary">
+            <small class="donation-summary-frequency">One time donation</small>
+            <span class="donation-summary-amount">
+              <p class="donation-total">$50.00</p>
+              <span class="currency-suffix">USD</span>
+            </span>
+          </div>
+          <button type="button" class="form-submit-button">DONATE</button>
+        </form>
+        <div class="form-footer">
+          <small class="footer-content"
+            >Save The Puppies is a registered 501(c)(3) nonprofit. Donations are tax-deductible to the extent permitted
+            by law. No goods or services were provided in exchange for this donation unless otherwise noted. For
+            receipts or questions, email donate@savethepuppies.org. Disclaimer: this is a fictional website created for
+            personal purposes. No payment is accepted and no information is retained.</small
+          >
+        </div>
+      </div>
     </div>
-  </div>
-  <footer class="main-footer"></footer>
-</body>
+    <footer class="main-footer">
+      <small class="footer-text">Copyright © 2025 Save The Puppies. All Rights Reserved.</small>
+    </footer>
+  </body>
 </html>
