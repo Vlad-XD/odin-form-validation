@@ -57,23 +57,23 @@
           <fieldset class="form-section donation-section">
             <legend class="form-legend">Donation Amount</legend>
             <div class="donation-form-subsection donation-frequency">
-              <input type="radio" name="donation-frequency" id="one-time" class="hidden" value="one-time" />
+              <input type="radio" name="donation-frequency" id="one-time" class="hidden" value="one-time" checked/>
               <label for="one-time" class="donation-section-option donation-frequency-label">One Time</label>
               <input type="radio" name="donation-frequency" id="monthly" class="hidden" value="monthly" />
               <label for="monthly" class="donation-section-option donation-frequency-label">Monthly</label>
             </div>
             <div class="donation-form-subsection donation-amount">
-              <input type="radio" name="donation-amount" id="preset1" class="hidden" value="25" checked />
+              <input type="radio" name="donation-amount" id="preset1" class="hidden donation-preset-radio" value="25" checked />
               <label for="preset1" class="donation-section-option donation-preset">$25</label>
-              <input type="radio" name="donation-amount" id="preset2" class="hidden" value="50" />
+              <input type="radio" name="donation-amount" id="preset2" class="hidden donation-preset-radio" value="50" />
               <label for="preset2" class="donation-section-option donation-preset">$50</label>
-              <input type="radio" name="donation-amount" id="preset3" class="hidden" value="100" />
+              <input type="radio" name="donation-amount" id="preset3" class="hidden donation-preset-radio" value="100" />
               <label for="preset3" class="donation-section-option donation-preset">$100</label>
-              <input type="radio" name="donation-amount" id="preset4" class="hidden" value="250" />
+              <input type="radio" name="donation-amount" id="preset4" class="hidden donation-preset-radio" value="250" />
               <label for="preset4" class="donation-section-option donation-preset">$250</label>
-              <input type="radio" name="donation-amount" id="preset5" class="hidden" value="500" />
+              <input type="radio" name="donation-amount" id="preset5" class="hidden donation-preset-radio" value="500" />
               <label for="preset5" class="donation-section-option donation-preset">$500</label>
-              <input type="radio" name="donation-amount" id="preset6" class="hidden" value="1000" />
+              <input type="radio" name="donation-amount" id="preset6" class="hidden donation-preset-radio" value="1000" />
               <label for="preset6" class="donation-section-option donation-preset">$1,000</label>
             </div>
               <input type="radio" name="donation-amount" id="custom-amount" class="hidden" value="" />
@@ -83,7 +83,7 @@
                   type="number"
                   name="donation-amount-input"
                   id="donation-amount-input"
-                  class="form-input donation-amount-input selected"
+                  class="form-input donation-amount-input"
                   placeholder="Other Amount"
                   min="0"
                   step="0.01"
@@ -99,7 +99,7 @@
                   name="dedication-name"
                   id="dedication-name"
                   placeholder="Enter Name"
-                  class="form-input"
+                  class="form-input hidden"
                 />
             </div>
           </fieldset>
@@ -176,8 +176,8 @@
             <div class="form-field">
               <label class="input-label" for="state">State/Province/Region</label>
               <select name="state" id="state" class="form-input form-select" autocomplete="address-level1" required>
-                <option>Nevada</option>
-                <option selected>Arizona</option>
+                <option selected>Nevada</option>
+                <option>Arizona</option>
               </select>
             </div>
             <div class="form-field">
@@ -194,8 +194,8 @@
             <div class="form-field">
               <label class="input-label" for="country">Country</label>
               <select name="country" id="country" class="form-input form-select" autocomplete="country-name" required>
-                <option>United States</option>
-                <option selected>Canada</option>
+                <option selected>United States</option>
+                <option>Canada</option>
               </select>
             </div>
           </fieldset>
@@ -253,30 +253,32 @@
                 </div>
               </div>
             </div>
-            <div class="account-password-wrapper">
-              <div class="form-field">
-                <label class="input-label" for="password">Password</label>
-                <input type="password" name="password" id="password" class="form-input" required />
+            <div class="account-password-section">
+              <div class="account-password-wrapper">
+                <div class="form-field">
+                  <label class="input-label" for="password">Password</label>
+                  <input type="password" name="password" id="password" class="form-input" required />
+                </div>
+                <div class="form-field">
+                  <label class="input-label" for="password-confirmation">Confirm Password</label>
+                  <input
+                    type="password"
+                    name="password-confirmation"
+                    id="password-confirmation"
+                    class="form-input"
+                    required
+                  />
+                </div>
               </div>
-              <div class="form-field">
-                <label class="input-label" for="password-confirmation">Confirm Password</label>
-                <input
-                  type="password"
-                  name="password-confirmation"
-                  id="password-confirmation"
-                  class="form-input"
-                  required
-                />
-              </div>
+              <small class="password-description"
+                >Password must be 8-20 characters. Password must include a number and a special character.</small
+              >
             </div>
-            <small class="password-description"
-              >Password must be 8-20 characters. Password must include a number and a special character.</small
-            >
           </fieldset>
           <div class="donation-summary">
             <small class="donation-summary-frequency">One time donation</small>
             <span class="donation-summary-amount">
-              <p class="donation-total">$50.00</p>
+              <p class="donation-total">$25.00</p>
               <span class="currency-suffix">USD</span>
             </span>
           </div>

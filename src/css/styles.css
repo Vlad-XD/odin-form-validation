@@ -236,7 +236,7 @@ input:checked + .donation-section-option {
 
 .account-password-wrapper {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(10rem, 1fr));
   gap: 1rem;
 }
 
