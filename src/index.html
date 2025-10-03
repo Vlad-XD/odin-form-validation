@@ -137,6 +137,7 @@
               <input
                 type="tel"
                 name="phone"
+                maxlength="12"
                 id="phone"
                 placeholder="555-555-5555"
                 class="form-input"
@@ -203,7 +204,7 @@
             <legend class="form-legend">Card Information</legend>
             <div class="form-field">
               <label class="input-label" for="cc">Card Number</label>
-              <input type="text" name="cc" id="cc" class="form-input" autocomplete="cc-number" required />
+              <input type="text" name="cc" id="cc" class="form-input" autocomplete="cc-number" maxlength="19" required />
             </div>
             <div class="form-field">
               <label class="input-label" for="expiration">Expiration</label>
@@ -212,6 +213,7 @@
                 name="expiration"
                 id="expiration"
                 placeholder="MM / YY"
+                maxlength="7";
                 class="form-input"
                 autocomplete="cc-exp"
                 required

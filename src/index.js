@@ -70,7 +70,7 @@ const postalCodeInput = document.querySelector("#postal-code");
 const countrySelect = document.querySelector("#country");
 // Card Information section
 const cardNumberInput = document.querySelector("#cc");
-const expirationInput = document.querySelector("#cc-exp");
+const expirationInput = document.querySelector("#expiration");
 const securityCodeInput = document.querySelector("#cvv");
 // Account Creation section
 const createYesButton = document.querySelector("#create-true");
@@ -130,6 +130,26 @@ otherAmountInput.addEventListener("change", () => {
   updateSummaryAmmount(Number(otherAmountInput.value));
 });
 
+// format input for other amount input
+
+// prevent more than two decimal places
+otherAmountInput.addEventListener("input", (e) => {
+
+  let value = otherAmountInput.value;
+  if (value.includes('.')) {
+    const [intPart, decPart] = value.split('.');
+    if (decPart.length > 2) {
+      otherAmountInput.value = intPart + '.' + decPart.slice(0, 2);
+    }
+  }
+
+})
+
+otherAmountInput.addEventListener("input", (e) => {
+
+
+})
+
 for (const radio of presetRadioList) {
   radio.addEventListener("change", () => {
     otherAmountInput.value = "";
@@ -150,8 +170,52 @@ function updateSummaryAmmount(number) {
 
 // functionality for contact information section
 
+// format input for phone number
+
+// prevent non-digit key strokes
+phoneInput.addEventListener("beforeinput", (e) => {
+  if (e.data && /\D/.test(e.data)) {
+    e.preventDefault;
+  }
+})
+
+phoneInput.addEventListener("input", (e) => {
+  // remove non-digits
+  let digits = e.target.value.replace(/\D/g, ''); 
+
+  // Split into groups: 3, 3, 4 digits
+  let part1 = digits.substring(0, 3);
+  let part2 = digits.substring(3, 6);
+  let part3 = digits.substring(6, 10);
+
+  let formatted = part1;
+  if (part2) {
+    formatted += '-' + part2;
+  }
+  if (part3) {
+    formatted += '-' + part3;
+  }
+
+  e.target.value = formatted;
+})
 
 // functionality for billing address section
+
+// format input for postal code
+
+// prevent non-digit or dash key strokes
+postalCodeInput.addEventListener("beforeinput", (e) => {
+  if (e.data && /[^\d-]/.test(e.data)) {
+    e.preventDefault;
+  }
+})
+
+postalCodeInput.addEventListener("input", (e) => {
+  // remove non-digits or dashes
+  let formatted = e.target.value.replace(/[^\d-]/g, ''); 
+  e.target.value = formatted;
+})
+
 countrySelect.addEventListener("change", () => {
   const stateInput = stateSelectHelpers();
 
@@ -230,6 +294,79 @@ function setStates(selectElement) {
 }
 
 // functionality for card information section
+
+// format input for card number
+
+// prevent non-digit key strokes
+cardNumberInput.addEventListener("beforeinput", (e) => {
+  if (e.data && /\D/.test(e.data)) {
+    e.preventDefault;
+  }
+})
+
+cardNumberInput.addEventListener("input", (e) => {
+  // remove non-digits
+  let digits = e.target.value.replace(/\D/g, ''); 
+
+  // Split into groups: 4, 4, 4, 4 digits
+  let part1 = digits.substring(0, 4);
+  let part2 = digits.substring(4, 8);
+  let part3 = digits.substring(8, 12);
+  let part4 = digits.substring(12, 16);
+  
+  let formatted = part1;
+  if (part2) {
+    formatted += ' ' + part2;
+  }
+  if (part3) {
+    formatted += ' ' + part3;
+  }
+  if (part4) {
+    formatted += ' ' + part4;
+  }
+
+  e.target.value = formatted;
+})
+
+// format input for expiration
+
+// prevent non-digit key strokes
+expirationInput.addEventListener("beforeinput", (e) => {
+  if (e.data && /\D/.test(e.data)) {
+    e.preventDefault;
+  }
+})
+
+expirationInput.addEventListener("input", (e) => {
+  // remove non-digits
+  let digits = e.target.value.replace(/\D/g, ''); 
+
+  // Split into groups: 2, 2 digits
+  let part1 = digits.substring(0, 2);
+  let part2 = digits.substring(2, 4);
+  
+  let formatted = part1;
+  if (part2) {
+    formatted += ' / ' + part2;
+  }
+
+  e.target.value = formatted;
+})
+
+// format input for security code
+
+// prevent non-digit or dash key strokes
+securityCodeInput.addEventListener("beforeinput", (e) => {
+  if (e.data && /[^\d]/.test(e.data)) {
+    e.preventDefault;
+  }
+})
+
+securityCodeInput.addEventListener("input", (e) => {
+  // remove non-digits
+  let formatted = e.target.value.replace(/[^\d]/g, ''); 
+  e.target.value = formatted;
+})
 
 // functionality for account creation section
 createYesButton.addEventListener("change", () => {
