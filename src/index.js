@@ -3,6 +3,11 @@ import "./css/normalize.css";
 import "./css/reset.css";
 import "./css/fonts.css";
 import "./css/styles.css";
+import "./css/confirmStyles.css";
+
+// import from modules
+import { generateConfirmationPage } from "./scripts/confirmationPage.js";
+import * as form from "./scripts/formValidate.js";
 
 // variable declarations
 const hiddenClass = "hidden";
@@ -13,42 +18,44 @@ const oneTimeFrequencyLabel = "One time donation";
 const monthlyFrequencyLabel = "Monthly donation";
 const oneTimeCurrencySuffix = "USD";
 const monthlyCurrencySuffix = "USD/mo";
+const submitButtonDefaultText = "DONATE";
+const submitButtonLoadingText = "CONFIRMING...";
 
 // obtain values from APIs
 const countryList = [];
 const stateList = [];
 
-fetch('https://restcountries.com/v3.1/all?fields=name')
-.then(res => res.json())
-.then((json) => {
-  for (const country of json) {
-    countryList.push(country.name.common);
-  }
-  countryList.sort();
-  setCountries(countrySelect);
-});
+fetch("https://restcountries.com/v3.1/all?fields=name")
+  .then((res) => res.json())
+  .then((json) => {
+    for (const country of json) {
+      countryList.push(country.name.common);
+    }
+    countryList.sort();
+    setCountries(countrySelect);
+  });
 
-
-fetch('https://countriesnow.space/api/v0.1/countries/states', {
-  method: 'POST',
+fetch("https://countriesnow.space/api/v0.1/countries/states", {
+  method: "POST",
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
-  body: JSON.stringify({country: 'United States'})
+  body: JSON.stringify({ country: "United States" }),
 })
-.then(res => res.json())
-.then((json) => {
-  for (const state of json.data.states) {
-    stateList.push(state.name);
-  }
-  stateList.sort();
-  setStates(stateSelect);
-});
+  .then((res) => res.json())
+  .then((json) => {
+    for (const state of json.data.states) {
+      stateList.push(state.name);
+    }
+    stateList.sort();
+    setStates(stateSelect);
+  });
 
-// obtain elements from DOM 
+// obtain elements from DOM
 
 // Donation Amount section
 const oneTimeRadio = document.querySelector("#one-time");
+const monthlyRadio = document.querySelector("#monthly");
 const oneTimeButton = document.querySelector("label[for='one-time']");
 const monthlyButton = document.querySelector("label[for='monthly']");
 const presetButtonList = document.querySelectorAll(".donation-preset");
@@ -75,11 +82,15 @@ const securityCodeInput = document.querySelector("#cvv");
 // Account Creation section
 const createYesButton = document.querySelector("#create-true");
 const createNoButton = document.querySelector("#create-false");
-const accountPasswordSection = document.querySelector(".account-password-section");
+const accountPasswordSection = document.querySelector(
+  ".account-password-section",
+);
 const passwordInput = document.querySelector("#password");
 const passwordConfirmInput = document.querySelector("#password-confirmation");
 // Donation Summary section
-const frequencySummaryLabel = document.querySelector(".donation-summary-frequency");
+const frequencySummaryLabel = document.querySelector(
+  ".donation-summary-frequency",
+);
 const frequencySummaryAmount = document.querySelector(".donation-total");
 const frequencySummarySuffix = document.querySelector(".currency-suffix");
 const formSubmitButton = document.querySelector(".form-submit-button");
@@ -89,9 +100,10 @@ const formSubmitButton = document.querySelector(".form-submit-button");
 // functionality for donation amount section
 oneTimeButton.addEventListener("click", () => {
   for (let i = 0; i < oneTimeDonationAmounts.length; i++) {
-    presetButtonList[i].textContent = `$${oneTimeDonationAmounts[i].toLocaleString("en-US")}`;
+    presetButtonList[i].textContent =
+      `$${oneTimeDonationAmounts[i].toLocaleString("en-US")}`;
     if (presetRadioList[i].checked === true) {
-      updateSummaryAmmount(oneTimeDonationAmounts[i]);
+      updateSummaryAmount(oneTimeDonationAmounts[i]);
     }
   }
   frequencySummaryLabel.textContent = oneTimeFrequencyLabel;
@@ -100,9 +112,10 @@ oneTimeButton.addEventListener("click", () => {
 
 monthlyButton.addEventListener("click", () => {
   for (let i = 0; i < monthlyDonationAmounts.length; i++) {
-    presetButtonList[i].textContent = `$${monthlyDonationAmounts[i].toLocaleString("en-US")}/mo`;
+    presetButtonList[i].textContent =
+      `$${monthlyDonationAmounts[i].toLocaleString("en-US")}/mo`;
     if (presetRadioList[i].checked === true) {
-    updateSummaryAmmount(monthlyDonationAmounts[i]);
+      updateSummaryAmount(monthlyDonationAmounts[i]);
     }
   }
   frequencySummaryLabel.textContent = monthlyFrequencyLabel;
@@ -112,43 +125,57 @@ monthlyButton.addEventListener("click", () => {
 for (let i = 0; i < presetButtonList.length; i++) {
   presetButtonList[i].addEventListener("click", () => {
     if (oneTimeRadio.checked) {
-        updateSummaryAmmount(oneTimeDonationAmounts[i]);
+      updateSummaryAmount(oneTimeDonationAmounts[i]);
     } else {
-        updateSummaryAmmount(monthlyDonationAmounts[i]);
+      updateSummaryAmount(monthlyDonationAmounts[i]);
     }
+    // remove any error message from the custom input button
+    form.removeError(otherAmountInput);
   });
 }
 
 otherAmountInput.addEventListener("input", () => {
-  otherAmountInput.classList.add(donationSelectedClass);
-  for (const option of presetRadioList) {
-    option.checked = false;
+  // check if user inputted anything
+  if (otherAmountInput.value !== "") {
+    otherAmountInput.classList.add(donationSelectedClass);
+    for (const option of presetRadioList) {
+      option.checked = false;
+    }
   }
 });
 
 otherAmountInput.addEventListener("change", () => {
-  updateSummaryAmmount(Number(otherAmountInput.value));
+  updateSummaryAmount(Number(otherAmountInput.value));
 });
 
 // format input for other amount input
 
-// prevent more than two decimal places
-otherAmountInput.addEventListener("input", (e) => {
+// prevent negative sign
+otherAmountInput.addEventListener("keydown", (e) => {
+  if (e.key === "-" || e.key === "Subtract") e.preventDefault();
+});
 
-  let value = otherAmountInput.value;
-  if (value.includes('.')) {
-    const [intPart, decPart] = value.split('.');
-    if (decPart.length > 2) {
-      otherAmountInput.value = intPart + '.' + decPart.slice(0, 2);
-    }
+otherAmountInput.addEventListener("paste", (e) => {
+  e.preventDefault();
+});
+
+// prevent more than two decimal places
+otherAmountInput.addEventListener("input", () => {
+  const value = otherAmountInput.value;
+
+  // takes into accoutn edge case of single decimal ""
+  if (otherAmountInput.value === "") {
+    otherAmountInput.dispatchEvent(new Event("change", { bubbles: true }));
+    return;
   }
 
-})
-
-otherAmountInput.addEventListener("input", (e) => {
-
-
-})
+  if (value.includes(".")) {
+    const [intPart, decPart] = value.split(".");
+    if (decPart.length > 2) {
+      otherAmountInput.value = intPart + "." + decPart.slice(0, 2);
+    }
+  }
+});
 
 for (const radio of presetRadioList) {
   radio.addEventListener("change", () => {
@@ -161,10 +188,11 @@ dedicationCheckbox.addEventListener("change", () => {
   // clear input and then toggle visibility
   dedicationNameInput.value = "";
   dedicationNameInput.classList.toggle(hiddenClass);
+  form.removeError(dedicationNameInput);
 });
 
 // helper function for updating donation summary
-function updateSummaryAmmount(number) {
+function updateSummaryAmount(number) {
   frequencySummaryAmount.textContent = number.toFixed(2);
 }
 
@@ -177,27 +205,27 @@ phoneInput.addEventListener("beforeinput", (e) => {
   if (e.data && /\D/.test(e.data)) {
     e.preventDefault;
   }
-})
+});
 
 phoneInput.addEventListener("input", (e) => {
   // remove non-digits
-  let digits = e.target.value.replace(/\D/g, ''); 
+  const digits = e.target.value.replace(/\D/g, "");
 
   // Split into groups: 3, 3, 4 digits
-  let part1 = digits.substring(0, 3);
-  let part2 = digits.substring(3, 6);
-  let part3 = digits.substring(6, 10);
+  const part1 = digits.substring(0, 3);
+  const part2 = digits.substring(3, 6);
+  const part3 = digits.substring(6, 10);
 
   let formatted = part1;
   if (part2) {
-    formatted += '-' + part2;
+    formatted += "-" + part2;
   }
   if (part3) {
-    formatted += '-' + part3;
+    formatted += "-" + part3;
   }
 
   e.target.value = formatted;
-})
+});
 
 // functionality for billing address section
 
@@ -208,28 +236,26 @@ postalCodeInput.addEventListener("beforeinput", (e) => {
   if (e.data && /[^\d-]/.test(e.data)) {
     e.preventDefault;
   }
-})
+});
 
 postalCodeInput.addEventListener("input", (e) => {
   // remove non-digits or dashes
-  let formatted = e.target.value.replace(/[^\d-]/g, ''); 
+  const formatted = e.target.value.replace(/[^\d-]/g, "");
   e.target.value = formatted;
-})
+});
 
 countrySelect.addEventListener("change", () => {
   const stateInput = stateSelectHelpers();
 
-  if(countrySelect.value === "United States") {
+  if (countrySelect.value === "United States") {
     stateInput.toggleSelect();
   } else {
     stateInput.toggleInput();
   }
-
 });
 
 // helper function for changing between state input type
-function stateSelectHelpers(){
-
+function stateSelectHelpers() {
   const html = `
               <select name="state" id="state" class="form-input form-select" autocomplete="address-level1" required>
                 <option>Nevada</option>
@@ -245,13 +271,17 @@ function stateSelectHelpers(){
                 required
               />              
   `;
-  const template = document.createElement('template');
+  const template = document.createElement("template");
   template.innerHTML = html.trim();
 
   const selectElement = template.content.firstElementChild;
   setStates(selectElement);
   const inputElement = template.content.lastElementChild;
-  
+  // if state element is input, it must be validated
+  inputElement.addEventListener("blur", () => {
+    form.validateState(stateSelect);
+  });
+
   const toggleSelect = () => {
     stateSelect.parentNode.replaceChild(selectElement, stateSelect);
     stateSelect = selectElement;
@@ -262,12 +292,12 @@ function stateSelectHelpers(){
     stateSelect = inputElement;
   };
 
-  return {toggleSelect, toggleInput};
+  return { toggleSelect, toggleInput };
 }
 
 // helper function to add countries to a select element
 function setCountries(selectElement) {
-  selectElement.innerHTML = '';
+  selectElement.innerHTML = "";
   for (const country of countryList) {
     const countryOption = document.createElement("option");
     countryOption.value = country;
@@ -281,7 +311,7 @@ function setCountries(selectElement) {
 
 // helper function to add states to a select element
 function setStates(selectElement) {
-  selectElement.innerHTML = '';
+  selectElement.innerHTML = "";
   for (const state of stateList) {
     const stateOption = document.createElement("option");
     stateOption.value = state;
@@ -302,31 +332,31 @@ cardNumberInput.addEventListener("beforeinput", (e) => {
   if (e.data && /\D/.test(e.data)) {
     e.preventDefault;
   }
-})
+});
 
 cardNumberInput.addEventListener("input", (e) => {
   // remove non-digits
-  let digits = e.target.value.replace(/\D/g, ''); 
+  const digits = e.target.value.replace(/\D/g, "");
 
   // Split into groups: 4, 4, 4, 4 digits
-  let part1 = digits.substring(0, 4);
-  let part2 = digits.substring(4, 8);
-  let part3 = digits.substring(8, 12);
-  let part4 = digits.substring(12, 16);
-  
+  const part1 = digits.substring(0, 4);
+  const part2 = digits.substring(4, 8);
+  const part3 = digits.substring(8, 12);
+  const part4 = digits.substring(12, 16);
+
   let formatted = part1;
   if (part2) {
-    formatted += ' ' + part2;
+    formatted += " " + part2;
   }
   if (part3) {
-    formatted += ' ' + part3;
+    formatted += " " + part3;
   }
   if (part4) {
-    formatted += ' ' + part4;
+    formatted += " " + part4;
   }
 
   e.target.value = formatted;
-})
+});
 
 // format input for expiration
 
@@ -335,23 +365,23 @@ expirationInput.addEventListener("beforeinput", (e) => {
   if (e.data && /\D/.test(e.data)) {
     e.preventDefault;
   }
-})
+});
 
 expirationInput.addEventListener("input", (e) => {
   // remove non-digits
-  let digits = e.target.value.replace(/\D/g, ''); 
+  const digits = e.target.value.replace(/\D/g, "");
 
   // Split into groups: 2, 2 digits
-  let part1 = digits.substring(0, 2);
-  let part2 = digits.substring(2, 4);
-  
+  const part1 = digits.substring(0, 2);
+  const part2 = digits.substring(2, 4);
+
   let formatted = part1;
   if (part2) {
-    formatted += ' / ' + part2;
+    formatted += " / " + part2;
   }
 
   e.target.value = formatted;
-})
+});
 
 // format input for security code
 
@@ -360,13 +390,13 @@ securityCodeInput.addEventListener("beforeinput", (e) => {
   if (e.data && /[^\d]/.test(e.data)) {
     e.preventDefault;
   }
-})
+});
 
 securityCodeInput.addEventListener("input", (e) => {
   // remove non-digits
-  let formatted = e.target.value.replace(/[^\d]/g, ''); 
+  const formatted = e.target.value.replace(/[^\d]/g, "");
   e.target.value = formatted;
-})
+});
 
 // functionality for account creation section
 createYesButton.addEventListener("change", () => {
@@ -375,14 +405,156 @@ createYesButton.addEventListener("change", () => {
 
 createNoButton.addEventListener("change", () => {
   accountPasswordSection.classList.add(hiddenClass);
+  form.removeError(passwordInput);
+  form.removeError(passwordConfirmInput);
   passwordInput.value = "";
   passwordConfirmInput.value = "";
 });
 
 // functionality for form submission
+formSubmitButton.addEventListener("click", () => {
+  formSubmitButton.textContent = submitButtonLoadingText;
+  formSubmitButton.disabled = true;
+  // time out to simulate communicating to server
+  setTimeout(() => {
+    // validate form
+    if (validateForm()) {
+      // if valid, generate the confirmation page
+      generateConfirmationPage(getData());
+    } else {
+      // otherwise, reactivate form
+      formSubmitButton.textContent = submitButtonDefaultText;
+      formSubmitButton.disabled = false;
+    }
+  }, 3000);
+});
 
+// helper function for form submission
+// returns true if form is valid
+function validateForm() {
+  let isValid = true;
 
+  // validate form, if any input is invalid, the form is invalid
 
+  //only validate dedication name if the checkbox is checked
+  if (dedicationCheckbox.checked) {
+    !form.validateDedication(dedicationNameInput) && (isValid = false);
+  }
+  !form.validateFirstName(firstNameInput) && (isValid = false);
+  !form.validateLastName(lastNameInput) && (isValid = false);
+  !form.validateEmailAddress(emailInput) && (isValid = false);
+  !form.validatePhoneNumber(phoneInput) && (isValid = false);
 
+  !form.validateStreetAddress(streetAddressInput) && (isValid = false);
+  !form.validateCity(cityInput) && (isValid = false);
+  !form.validatePostalCode(postalCodeInput, countrySelect) && (isValid = false);
+  // only validate state/province/region if the country is not the United States
+  if (countrySelect.value !== "United States") {
+    !form.validateState(stateSelect) && (isValid = false);
+  }
 
+  !form.validateCardNumber(cardNumberInput) && (isValid = false);
+  !form.validateSecurityCode(securityCodeInput) && (isValid = false);
+  !form.validateExpirationDate(expirationInput) && (isValid = false);
 
+  // only validate passwords if user is creating an account
+  if (createYesButton.checked) {
+    !form.validatePassword(passwordInput) && (isValid = false);
+    !form.validateConfirmPassword(passwordConfirmInput, passwordInput) &&
+      (isValid = false);
+  }
+
+  return isValid;
+}
+
+// returns an object with info needed for confirmation page
+function getData() {
+  const data = {
+    firstName: firstNameInput.value,
+    lastName: lastNameInput.value,
+    streetAddress: streetAddressInput.value,
+    addressLineTwo: addressTwoInput.value,
+    city: cityInput.value,
+    state: stateSelect.value,
+    postalCode: postalCodeInput.value,
+    country: countrySelect.value,
+    donationAmount: getDonationAmountText(),
+  };
+
+  return data;
+}
+
+// helper function to generate donation amount info text
+function getDonationAmountText() {
+  if (monthlyRadio.checked === true) {
+    return `$${frequencySummaryAmount.textContent} per month`;
+  } else {
+    return `$${frequencySummaryAmount.textContent}`;
+  }
+}
+
+// setting form validation for inputs validation
+
+otherAmountInput.addEventListener("blur", () => {
+  // only validate if other amount input is active
+  if (otherAmountInput.classList.contains(donationSelectedClass)) {
+    form.validateCustomDonation(otherAmountInput);
+  }
+});
+
+dedicationNameInput.addEventListener("blur", () => {
+  form.validateDedication(dedicationNameInput);
+});
+
+firstNameInput.addEventListener("blur", () => {
+  form.validateFirstName(firstNameInput);
+});
+
+lastNameInput.addEventListener("blur", () => {
+  form.validateLastName(lastNameInput);
+});
+
+emailInput.addEventListener("blur", () => {
+  form.validateEmailAddress(emailInput);
+});
+
+phoneInput.addEventListener("blur", () => {
+  form.validatePhoneNumber(phoneInput);
+});
+
+streetAddressInput.addEventListener("blur", () => {
+  form.validateStreetAddress(streetAddressInput);
+});
+
+cityInput.addEventListener("blur", () => {
+  form.validateCity(cityInput);
+});
+
+postalCodeInput.addEventListener("blur", () => {
+  form.validatePostalCode(postalCodeInput, countrySelect);
+});
+
+cardNumberInput.addEventListener("blur", () => {
+  form.validateCardNumber(cardNumberInput);
+});
+
+expirationInput.addEventListener("blur", () => {
+  form.validateExpirationDate(expirationInput);
+});
+
+securityCodeInput.addEventListener("blur", () => {
+  form.validateSecurityCode(securityCodeInput);
+});
+
+passwordInput.addEventListener("blur", () => {
+  form.validatePassword(passwordInput);
+
+  // also validate the confirm if there is a value there
+  if (passwordConfirmInput.value !== "" || passwordInput.value === "") {
+    form.validateConfirmPassword(passwordConfirmInput, passwordInput);
+  }
+});
+
+passwordConfirmInput.addEventListener("blur", () => {
+  form.validateConfirmPassword(passwordConfirmInput, passwordInput);
+});

@@ -94,17 +94,17 @@ a:active {
 input:focus,
 textarea:focus,
 select:focus {
-  outline: none;      /* remove browser outline */
-  box-shadow: none;   /* remove glow in Safari/Chrome */
+  outline: none; /* remove browser outline */
+  box-shadow: none; /* remove glow in Safari/Chrome */
   border-color: inherit; /* fallback border */
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }

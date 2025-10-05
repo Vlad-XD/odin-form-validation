@@ -57,50 +57,92 @@
           <fieldset class="form-section donation-section">
             <legend class="form-legend">Donation Amount</legend>
             <div class="donation-form-subsection donation-frequency">
-              <input type="radio" name="donation-frequency" id="one-time" class="hidden" value="one-time" checked/>
+              <input type="radio" name="donation-frequency" id="one-time" class="hidden" value="one-time" checked />
               <label for="one-time" class="donation-section-option donation-frequency-label">One Time</label>
               <input type="radio" name="donation-frequency" id="monthly" class="hidden" value="monthly" />
               <label for="monthly" class="donation-section-option donation-frequency-label">Monthly</label>
             </div>
             <div class="donation-form-subsection donation-amount">
-              <input type="radio" name="donation-amount" id="preset1" class="hidden donation-preset-radio" value="25" checked />
+              <input
+                type="radio"
+                name="donation-amount"
+                id="preset1"
+                class="hidden donation-preset-radio"
+                value="25"
+                checked
+              />
               <label for="preset1" class="donation-section-option donation-preset">$25</label>
               <input type="radio" name="donation-amount" id="preset2" class="hidden donation-preset-radio" value="50" />
               <label for="preset2" class="donation-section-option donation-preset">$50</label>
-              <input type="radio" name="donation-amount" id="preset3" class="hidden donation-preset-radio" value="100" />
+              <input
+                type="radio"
+                name="donation-amount"
+                id="preset3"
+                class="hidden donation-preset-radio"
+                value="100"
+              />
               <label for="preset3" class="donation-section-option donation-preset">$100</label>
-              <input type="radio" name="donation-amount" id="preset4" class="hidden donation-preset-radio" value="250" />
+              <input
+                type="radio"
+                name="donation-amount"
+                id="preset4"
+                class="hidden donation-preset-radio"
+                value="250"
+              />
               <label for="preset4" class="donation-section-option donation-preset">$250</label>
-              <input type="radio" name="donation-amount" id="preset5" class="hidden donation-preset-radio" value="500" />
+              <input
+                type="radio"
+                name="donation-amount"
+                id="preset5"
+                class="hidden donation-preset-radio"
+                value="500"
+              />
               <label for="preset5" class="donation-section-option donation-preset">$500</label>
-              <input type="radio" name="donation-amount" id="preset6" class="hidden donation-preset-radio" value="1000" />
+              <input
+                type="radio"
+                name="donation-amount"
+                id="preset6"
+                class="hidden donation-preset-radio"
+                value="1000"
+              />
               <label for="preset6" class="donation-section-option donation-preset">$1,000</label>
             </div>
-              <input type="radio" name="donation-amount" id="custom-amount" class="hidden" value="" />
-              <label for="custom-amount" class="donation-amount-input-wrapper">
-                <span class="input-prefix">$</span>
-                <input
-                  type="number"
-                  name="donation-amount-input"
-                  id="donation-amount-input"
-                  class="form-input donation-amount-input"
-                  placeholder="Other Amount"
-                  min="0"
-                  step="0.01"
-                />
-              </label>
+            <input type="radio" name="donation-amount" id="custom-amount" class="hidden" value="" />
+            <label for="custom-amount" class="donation-amount-input-wrapper">
+              <div class="form-field">
+                <div class="donation-input-form-field-wrapper">
+                  <span class="input-prefix">$</span>
+                  <input
+                    type="number"
+                    name="donation-amount-input"
+                    id="donation-amount-input"
+                    class="form-input donation-amount-input"
+                    placeholder="Other Amount"
+                    min="0"
+                    step="0.01"
+                    autocomplete="off"
+                    required
+                  />
+                </div>
+              </div>
+            </label>
             <div class="donation-form-subsection donation-dedication">
               <div class="donation-dedication-checkbox">
                 <input type="checkbox" id="donation-dedication" name="donation-dedication" value="true" />
-                  <label class ="checkbox-label" for="donation-dedication">Dedicate this donation to a friend or loved one</label>
+                <label class="checkbox-label" for="donation-dedication"
+                  >Dedicate this donation to a friend or loved one</label
+                >
               </div>
+              <div class="form-field dedication-name-form">
                 <input
                   type="text"
                   name="dedication-name"
                   id="dedication-name"
                   placeholder="Enter Name"
                   class="form-input hidden"
+                  required
                 />
+              </div>
             </div>
           </fieldset>
           <fieldset class="form-section contact-section">
@@ -118,7 +160,14 @@
             </div>
             <div class="form-field">
               <label class="input-label" for="last-name">Last Name</label>
-              <input type="text" name="last-name" id="last-name" class="form-input" autocomplete="family-name" required />
+              <input
+                type="text"
+                name="last-name"
+                id="last-name"
+                class="form-input"
+                autocomplete="family-name"
+                required
+              />
             </div>
             <div class="form-field">
               <label class="input-label" for="email">Email</label>
@@ -128,6 +177,7 @@
                 id="email"
                 placeholder="email@example.com"
                 class="form-input"
+                pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
                 autocomplete="email"
                 required
               />
@@ -204,7 +254,15 @@
             <legend class="form-legend">Card Information</legend>
             <div class="form-field">
               <label class="input-label" for="cc">Card Number</label>
-              <input type="text" name="cc" id="cc" class="form-input" autocomplete="cc-number" maxlength="19" required />
+              <input
+                type="text"
+                name="cc"
+                id="cc"
+                class="form-input"
+                autocomplete="cc-number"
+                maxlength="19"
+                required
+              />
             </div>
             <div class="form-field">
               <label class="input-label" for="expiration">Expiration</label>
@@ -213,7 +271,8 @@
                 name="expiration"
                 id="expiration"
                 placeholder="MM / YY"
-                maxlength="7";
+                maxlength="7"
+                ;
                 class="form-input"
                 autocomplete="cc-exp"
                 required
@@ -280,7 +339,8 @@
           <div class="donation-summary">
             <small class="donation-summary-frequency">One time donation</small>
             <span class="donation-summary-amount">
-              <p class="donation-total">$25.00</p>
+              <span class="currency-prefix">$</span>
+              <p class="donation-total">25.00</p>
               <span class="currency-suffix">USD</span>
             </span>
           </div>
