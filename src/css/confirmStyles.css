@@ -1,0 +1,111 @@
+:root {
+  --confirmation-main-content-width: clamp(25rem, 75%, 60rem);
+  --confirmation-logo-icon-width: 7.5rem;
+
+  --confirmation-logo-font-size: 3.6rem;
+  --confirm-message-font-size: 1.2rem;
+  --donation-info-title-font-size: 1.5rem;
+  --donation-info-title-font-weight: 700;
+  --donation-label-font-weight: 700;
+  --donation-info-font-size: 1.1rem;
+
+  --donation-info-bg-color: rgb(218, 218, 218);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.confirmation-main-content-background {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.confirmation-main-content {
+  width: var(--confirmation-main-content-width);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--form-bg-color);
+  box-shadow: 0 0 2px 4px rgba(0, 0, 0, 0.25);
+  padding: 2rem 2rem;
+}
+
+.confirmation-logo-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.confirmation-logo-icon {
+  width: var(--confirmation-logo-icon-width);
+  stroke: black;
+  stroke-width: 0.3rem;
+  fill: var(--secondary-color);
+  transform: rotate(-45deg);
+  transform-origin: center center;
+  overflow: visible;
+  margin-right: 0.5rem;
+}
+
+.confirmation-logo-title {
+  font-family: var(--logo-font-stack);
+  font-size: var(--confirmation-logo-font-size);
+  font-weight: var(--logo-font-weight);
+  white-space: nowrap;
+}
+
+.confirm-message {
+  font-size: var(--confirm-message-font-size);
+  margin: 2rem 0;
+}
+
+.donation-info-section {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--donation-info-bg-color);
+  padding: 1.5rem 1.5rem;
+  width: 100%;
+}
+
+.donation-info-title {
+  font-size: var(--donation-info-title-font-size);
+  font-weight: var(--donation-info-title-font-weight);
+  text-decoration: underline;
+  white-space: nowrap;
+  margin-bottom: 1rem;
+  align-self: center;
+}
+
+.donation-info-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.donation-info-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+}
+
+.donation-label {
+  font-weight: var(--donation-label-font-weight);
+}
+
+.donation-label,
+.donation-info {
+  font-size: var(--donation-info-font-size);
+}
+
+@media (max-width: 600px) {
+  :root {
+    --confirmation-logo-icon-width: 6rem;
+
+    --confirmation-logo-font-size: 2.9rem;
+  }
+}
